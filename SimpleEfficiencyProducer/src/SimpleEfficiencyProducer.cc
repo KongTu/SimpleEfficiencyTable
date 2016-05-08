@@ -19,40 +19,7 @@
 
 
 // system include files
-#include <memory>
-
-// user include files
-#include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
-
-#include "FWCore/Framework/interface/Event.h"
-#include "FWCore/Framework/interface/MakerMacros.h"
-
-#include "FWCore/ParameterSet/interface/ParameterSet.h"
-//
-// class declaration
-//
-
-class SimpleEfficiencyProducer : public edm::EDAnalyzer {
-   public:
-      explicit SimpleEfficiencyProducer(const edm::ParameterSet&);
-      ~SimpleEfficiencyProducer();
-
-      static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
-
-
-   private:
-      virtual void beginJob() ;
-      virtual void analyze(const edm::Event&, const edm::EventSetup&);
-      virtual void endJob() ;
-
-      virtual void beginRun(edm::Run const&, edm::EventSetup const&);
-      virtual void endRun(edm::Run const&, edm::EventSetup const&);
-      virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
-      virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&);
-
-      // ----------member data ---------------------------
-};
+#include "SimpleEfficiencyTable/SimpleEfficiencyProducer/interface/SimpleEfficiencyProducerBase.h"
 
 //
 // constants, enums and typedefs
@@ -69,16 +36,27 @@ SimpleEfficiencyProducer::SimpleEfficiencyProducer(const edm::ParameterSet& iCon
 
 {
    //now do what ever initialization is needed
+  trackSrc_ = iConfig.getParameter<edm::InputTag>("trackSrc");
+  vertexSrc_ = iConfig.getParameter<std::string>("vertexSrc");
+  genParticleSrc_ = iConfig.getParameter<edm::InputTag>("genParticleSrc");
+  
+  Nmin_ = iConfig.getUntrackedParameter<int>("Nmin");
+  Nmax_ = iConfig.getUntrackedParameter<int>("Nmax");
+    
+  vzLow_ = iConfig.getUntrackedParameter<double>("vzLow");
+  vzHigh_ = iConfig.getUntrackedParameter<double>("vzHigh");
 
+  offlineptErr_ = iConfig.getUntrackedParameter<double>("offlineptErr", 0.0);
+  offlineDCA_ = iConfig.getUntrackedParameter<double>("offlineDCA", 0.0);
+  offlineChi2_ = iConfig.getUntrackedParameter<double>("offlineChi2", 0.0);
+  offlinenhits_ = iConfig.getUntrackedParameter<double>("offlinenhits", 0.0);
+
+  etaBins_ = iConfig.getUntrackedParameter<std::vector<double>>("etaBins");
 }
 
 
 SimpleEfficiencyProducer::~SimpleEfficiencyProducer()
 {
- 
-   // do anything here that needs to be done at desctruction time
-   // (e.g. close files, deallocate resources etc.)
-
 }
 
 
@@ -90,26 +68,102 @@ SimpleEfficiencyProducer::~SimpleEfficiencyProducer()
 void
 SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-   using namespace edm;
+  using namespace edm;
+  using namespace std;
+
+  edm::Handle<reco::VertexCollection> vertices;
+  iEvent.getByLabel(vertexSrc_,vertices);
+  double bestvz=-999.9, bestvx=-999.9, bestvy=-999.9;
+  double bestvzError=-999.9, bestvxError=-999.9, bestvyError=-999.9;
+  const reco::Vertex & vtx = (*vertices)[0];
+  bestvz = vtx.z(); bestvx = vtx.x(); bestvy = vtx.y();
+  bestvzError = vtx.zError(); bestvxError = vtx.xError(); bestvyError = vtx.yError();
+  
+  //first selection; vertices
+  if(bestvz < vzLow_ || bestvz > vzHigh_ ) return;
+
+  Handle<reco::TrackCollection> tracks;
+  iEvent.getByLabel(trackSrc_, tracks);
+
+  int nTracks = 0;
+  for(unsigned it = 0; it < tracks->size(); it++){
+
+     const reco::Track & trk = (*tracks)[it];
+
+     math::XYZPoint bestvtx(bestvx,bestvy,bestvz);
+        
+        double dzvtx = trk.dz(bestvtx);
+        double dxyvtx = trk.dxy(bestvtx);
+        double dzerror = sqrt(trk.dzError()*trk.dzError()+bestvzError*bestvzError);
+        double dxyerror = sqrt(trk.d0Error()*trk.d0Error()+bestvxError*bestvyError);
+        //double nhits = trk.numberOfValidHits();
+        double chi2 = trk.chi2();
+        double ndof = trk.ndof();
+        double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
+        //chi2n = chi2n/nlayers;
+
+        if(!trk.quality(reco::TrackBase::highPurity)) continue;
+        if(fabs(trk.ptError())/trk.pt() > offlineptErr_ ) continue;
+        if(fabs(dzvtx/dzerror) > offlineDCA_) continue;
+        if(fabs(dxyvtx/dxyerror) > offlineDCA_) continue;
+        if(fabs(trk.eta()) < 2.4 && trk.pt() > 0.4 ){nTracks++;}// NtrkOffline        
+        
+        if(fabs(trk.eta()) > 2.4 ) continue;
+        if(chi2 > 5) continue;
+        if(ndof < 5) continue;
+        if(nlayers <= 0 ) continue;
+
+        recoHist->Fill(trk.eta(), trk.pt() );
+
+  } 
+
+  if( !useCentrality_ ) if( nTracks < Nmin_ || nTracks >= Nmax_ ) return;
+  
+  Ntrk->Fill(nTracks);
+
+  edm::Handle<reco::GenParticleCollection> genParticleCollection;
+  iEvent.getByLabel(genParticleSrc_, genParticleCollection);
+
+  for(unsigned it=0; it<genParticleCollection->size(); ++it) {
+
+    const reco::GenParticle & genCand = (*genParticleCollection)[it];
+    int status = genCand.status();
+    double genpt = genCand.pt();
+    double geneta = genCand.eta();
+    int gencharge = genCand.charge();
+
+    if( status != 1  || gencharge == 0 ) continue;
+    if( fabs(geneta) > 2.4 ) continue;
+
+    genHist->Fill(geneta, genpt);
+
+  }
 
 
-
-#ifdef THIS_IS_AN_EVENT_EXAMPLE
-   Handle<ExampleData> pIn;
-   iEvent.getByLabel("example",pIn);
-#endif
-   
-#ifdef THIS_IS_AN_EVENTSETUP_EXAMPLE
-   ESHandle<SetupData> pSetup;
-   iSetup.get<SetupRecord>().get(pSetup);
-#endif
 }
-
 
 // ------------ method called once each job just before starting event loop  ------------
 void 
 SimpleEfficiencyProducer::beginJob()
 {
+
+  edm::Service<TFileService> fs;
+    
+  TH2D::SetDefaultSumw2();
+
+  const int NEtaBins = etaBins_.size() - 1;
+  double etaBinsArray[100];
+
+  for(unsigned i = 0; i < etaBins_.size(); i++){
+
+    etaBinsArray[i] = etaBins_[i];
+  }
+
+  Ntrk = fs->make<TH1D>("Ntrk",";Ntrk",5000,0,5000);
+
+  recoHist = fs->make<TH2D>("recoHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, 100, 0, 10);
+  genHist  = fs->make<TH2D>("genHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, 100, 0, 10);
+
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
