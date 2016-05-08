@@ -1,0 +1,162 @@
+DEBUG 2016-05-08 15:58:37,524: 	 Executing command: 'submit'
+DEBUG 2016-05-08 15:58:37,525: 	 Found CRAB cache file /afs/cern.ch/user/z/ztu/.crab3
+DEBUG 2016-05-08 15:58:37,548: 	 Checking credentials
+DEBUG 2016-05-08 15:58:37,548: 	 Proxy file /tmp/x509up_u30140 not found
+DEBUG 2016-05-08 15:58:37,548: 	 Creating new proxy for 24:00 hours with VO group '' and VO role 'NULL'.
+DEBUG 2016-05-08 15:58:43,036: 	 Executing : 
+ command : voms-proxy-init -voms cms:/cms -valid 24:00 -rfc
+ output : None
+ error: None
+ retcode : 0
+DEBUG 2016-05-08 15:58:43,850: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u30140 -timeleft
+ output : 86398
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:44,574: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u30140 -actimeleft
+ output : 86397
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:45,298: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u30140 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+/cms/uscms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:45,299: 	 Proxy created.
+INFO 2016-05-08 15:58:45,299: 	 Will use CRAB configuration file crab_ana.py
+DEBUG 2016-05-08 15:58:45,300: 	 Loading CRAB configuration file.
+DEBUG 2016-05-08 15:58:48,103: 	 Will use CRAB Analysis plugin (i.e. will run an analysis job type).
+DEBUG 2016-05-08 15:58:48,225: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=ztu/CN=732466/CN=Zhoudunming Tu
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:48,225: 	 Checking credentials
+DEBUG 2016-05-08 15:58:48,225: 	 Found proxy file /tmp/x509up_u30140
+DEBUG 2016-05-08 15:58:48,225: 	 Getting proxy life time left
+DEBUG 2016-05-08 15:58:48,843: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u30140 -timeleft
+ output : 86393
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:49,555: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u30140 -actimeleft
+ output : 86392
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:49,556: 	 Proxy valid for 23:59:53 hours
+DEBUG 2016-05-08 15:58:50,262: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u30140 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+/cms/uscms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:50,666: 	 Registering user credentials for server /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+DEBUG 2016-05-08 15:58:50,784: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=ztu/CN=732466/CN=Zhoudunming Tu
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:50,784: 	 Getting myproxy life time left for myproxy.cern.ch
+DEBUG 2016-05-08 15:58:50,784: 	 Calculating hash of /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=ztu/CN=732466/CN=Zhoudunming Tu_cmsweb.cern.ch for credential name
+DEBUG 2016-05-08 15:58:52,307: 	 Executing : 
+ command : myproxy-info -l aeeb635c02ab2354cd0696fedaf0d9122a1d7b0d -s myproxy.cern.ch
+ output : username: aeeb635c02ab2354cd0696fedaf0d9122a1d7b0d
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=ztu/CN=732466/CN=Zhoudunming Tu
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=vocms(045|052|021|031|0118|0118a|0119).cern.ch
+  timeleft: 456:19:34  (19.0 days)
+
+ error: 
+ retcode : 0
+DEBUG 2016-05-08 15:58:52,308: 	 Myproxy is valid: 1642774
+DEBUG 2016-05-08 15:58:52,308: 	 Command use: submit
+DEBUG 2016-05-08 15:58:52,308: 	 Options use: ['-c', 'crab_ana.py']
+DEBUG 2016-05-08 15:58:52,672: 	 CRABClient version: 3.3.1604
+DEBUG 2016-05-08 15:58:52,672: 	 Instance is prod
+DEBUG 2016-05-08 15:58:52,672: 	 Server base url is cmsweb.cern.ch
+DEBUG 2016-05-08 15:58:52,672: 	 Command url /crabserver/prod/workflow
+DEBUG 2016-05-08 15:58:52,672: 	 Started submission
+DEBUG 2016-05-08 15:58:52,673: 	 Working on /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/test/pPb_EPOS_SimpleEfficiencyTable_v1/crab_pPb_EPOS_SimpleEfficiencyTable_v1
+DEBUG 2016-05-08 15:58:53,373: 	 Loading required information from the environment
+DEBUG 2016-05-08 15:58:53,373: 	 Found CMSSW_5_3_20 for slc6_amd64_gcc472 with base /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20
+DEBUG 2016-05-08 15:58:53,405: 	 UNIQUE NAME: tarUUID 7c7b5ca1-554e-44c3-8b01-7464983113ba 
+DEBUG 2016-05-08 15:58:53,406: 	 self.config: from WMCore.Configuration import Configuration
+config = Configuration()
+config.section_('General')
+config.General.transferLogs = True
+config.General.transferOutputs = True
+config.General.workArea = 'pPb_EPOS_SimpleEfficiencyTable_v1'
+config.General.requestName = 'pPb_EPOS_SimpleEfficiencyTable_v1'
+config.section_('JobType')
+config.JobType.psetName = 'simpleefficiencyproducer_cfg.py'
+config.JobType.pluginName = 'Analysis'
+config.JobType.allowUndistributedCMSSW = True
+config.section_('Data')
+config.Data.inputDataset = '/ReggeGribovPartonMCfix_EposLHC_5TeV_pPb/davidlw-RecoSkim_ReTracking_v4_5M-5cde49c8740ff28f897f533d05a99dbc/USER'
+config.Data.publication = False
+config.Data.unitsPerJob = 10
+config.Data.ignoreLocality = False
+config.Data.inputDBS = 'phys03'
+config.Data.splitting = 'FileBased'
+config.Data.outLFNDirBase = '/store/user/ztu/'
+config.section_('Site')
+config.Site.storageSite = 'T2_US_MIT'
+config.section_('User')
+config.section_('Debug')
+
+DEBUG 2016-05-08 15:58:53,406: 	 self.config.JobType.psetName: simpleefficiencyproducer_cfg.py
+INFO 2016-05-08 15:58:53,406: 	 Importing CMSSW configuration simpleefficiencyproducer_cfg.py
+INFO 2016-05-08 15:58:57,857: 	 Finished importing CMSSW configuration simpleefficiencyproducer_cfg.py
+DEBUG 2016-05-08 15:58:57,857: 	 Writing CMSSW configuration to /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/test/pPb_EPOS_SimpleEfficiencyTable_v1/crab_pPb_EPOS_SimpleEfficiencyTable_v1/inputs/PSet.py
+DEBUG 2016-05-08 15:59:00,567: 	 The following EDM output files will be collected: []
+DEBUG 2016-05-08 15:59:00,568: 	 The following TFile output files will be collected: ['eff.root']
+DEBUG 2016-05-08 15:59:00,568: 	 The following user output files will be collected: []
+DEBUG 2016-05-08 15:59:00,568: 	 Loading required information from the environment
+DEBUG 2016-05-08 15:59:00,568: 	 Found CMSSW_5_3_20 for slc6_amd64_gcc472 with base /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20
+DEBUG 2016-05-08 15:59:00,568: 	 Making tarball in /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/test/pPb_EPOS_SimpleEfficiencyTable_v1/crab_pPb_EPOS_SimpleEfficiencyTable_v1/inputs/7c7b5ca1-554e-44c3-8b01-7464983113badefault.tgz
+DEBUG 2016-05-08 15:59:00,569: 	 Checking directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/lib
+DEBUG 2016-05-08 15:59:00,569: 	 Adding directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/lib to tarball
+DEBUG 2016-05-08 15:59:03,529: 	 Checking directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/biglib
+DEBUG 2016-05-08 15:59:03,530: 	 Checking directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/module
+DEBUG 2016-05-08 15:59:04,755: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoHI/HiCentralityAlgos/data to tarball
+DEBUG 2016-05-08 15:59:04,966: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoHI/HiCentralityAlgos/interface to tarball
+DEBUG 2016-05-08 15:59:04,996: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoHI/HiJetAlgos/data to tarball
+DEBUG 2016-05-08 15:59:06,011: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoHI/HiJetAlgos/interface to tarball
+DEBUG 2016-05-08 15:59:06,096: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoHI/HiTracking/interface to tarball
+DEBUG 2016-05-08 15:59:06,153: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/GeneratorInterface/HiGenCommon/data to tarball
+DEBUG 2016-05-08 15:59:06,183: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/GeneratorInterface/HiGenCommon/interface to tarball
+DEBUG 2016-05-08 15:59:06,206: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/HeavyIonsAnalysis/Configuration/data to tarball
+DEBUG 2016-05-08 15:59:06,277: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/HeavyIonsAnalysis/HiTrkEffAnalyzer/interface to tarball
+DEBUG 2016-05-08 15:59:06,299: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/HeavyIonsAnalysis/JetAnalysis/interface to tarball
+DEBUG 2016-05-08 15:59:06,411: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/HeavyIonsAnalysis/MuonAnalysis/interface to tarball
+DEBUG 2016-05-08 15:59:06,442: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/HeavyIonsAnalysis/TrackAnalysis/interface to tarball
+DEBUG 2016-05-08 15:59:06,465: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoJets/JetProducers/interface to tarball
+DEBUG 2016-05-08 15:59:06,740: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RiceHIG/FlowCorrAna/DiHadronCorrelationAnalyzer/data to tarball
+DEBUG 2016-05-08 15:59:08,724: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RiceHIG/FlowCorrAna/DiHadronCorrelationAnalyzer/interface to tarball
+DEBUG 2016-05-08 15:59:09,154: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RiceHIG/Skim2013/data to tarball
+DEBUG 2016-05-08 15:59:09,319: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RiceHIG/TrkEffAnalyzer/interface to tarball
+DEBUG 2016-05-08 15:59:09,352: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RiceHIG/V0Analysis/interface to tarball
+DEBUG 2016-05-08 15:59:09,397: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/RecoTracker/FinalTrackSelectors/interface to tarball
+DEBUG 2016-05-08 15:59:09,546: 	 Adding data directory /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/interface to tarball
+DEBUG 2016-05-08 15:59:10,410: 	 Uploading archive /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/test/pPb_EPOS_SimpleEfficiencyTable_v1/crab_pPb_EPOS_SimpleEfficiencyTable_v1/inputs/7c7b5ca1-554e-44c3-8b01-7464983113badefault.tgz to the CRAB cache. Using URI https://cmsweb.cern.ch/crabcache
+DEBUG 2016-05-08 15:59:16,564: 	 Result uploading input files: b450689e5bfadc10a1d04fbcffb9c090c1a4590c6c31eeae717244261eb41bcf.tar.gz 
+INFO 2016-05-08 15:59:16,564: 	 Sending the request to the server
+DEBUG 2016-05-08 15:59:16,565: 	 Submitting {'maxjobruntime': 1250, 'ignorelocality': 0, 'savelogsflag': 1, 'useparent': 0, 'asyncdest': 'T2_US_MIT', 'algoargs': 10, 'cachefilename': 'b450689e5bfadc10a1d04fbcffb9c090c1a4590c6c31eeae717244261eb41bcf.tar.gz', 'numcores': 1, 'addoutputfiles': [], 'generator': 'pythia', 'maxmemory': 2000, 'publishdbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter', 'priority': 10, 'jobsw': 'CMSSW_5_3_20', 'edmoutfiles': [], 'userfiles': [], 'primarydataset': '', 'inputdata': '/ReggeGribovPartonMCfix_EposLHC_5TeV_pPb/davidlw-RecoSkim_ReTracking_v4_5M-5cde49c8740ff28f897f533d05a99dbc/USER', 'lfn': '/store/user/ztu/', 'dryrun': 0, 'workflow': 'crab_pPb_EPOS_SimpleEfficiencyTable_v1', 'adduserfiles': [], 'nonprodsw': 1, 'tfileoutfiles': ['eff.root'], 'oneEventMode': 0, 'cacheurl': 'https://cmsweb.cern.ch/crabcache', 'saveoutput': 1, 'publication': 0, 'jobarch': 'slc6_amd64_gcc472', 'totalunits': 0, 'splitalgo': 'FileBased', 'nonvaliddata': 0, 'dbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSReader', 'publishgroupname': 0, 'jobtype': 'Analysis', 'publishname2': ''} 
+DEBUG 2016-05-08 15:59:16,565: 	 Encoded submit request: maxjobruntime=1250&ignorelocality=0&savelogsflag=1&useparent=0&asyncdest=T2_US_MIT&algoargs=10&cachefilename=b450689e5bfadc10a1d04fbcffb9c090c1a4590c6c31eeae717244261eb41bcf.tar.gz&numcores=1&generator=pythia&maxmemory=2000&publishdbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fphys03%2FDBSWriter&priority=10&jobsw=CMSSW_5_3_20&primarydataset=&inputdata=%2FReggeGribovPartonMCfix_EposLHC_5TeV_pPb%2Fdavidlw-RecoSkim_ReTracking_v4_5M-5cde49c8740ff28f897f533d05a99dbc%2FUSER&lfn=%2Fstore%2Fuser%2Fztu%2F&dryrun=0&workflow=crab_pPb_EPOS_SimpleEfficiencyTable_v1&nonprodsw=1&oneEventMode=0&cacheurl=https%3A%2F%2Fcmsweb.cern.ch%2Fcrabcache&saveoutput=1&publication=0&jobarch=slc6_amd64_gcc472&totalunits=0&splitalgo=FileBased&nonvaliddata=0&dbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fphys03%2FDBSReader&publishgroupname=0&jobtype=Analysis&publishname2=&tfileoutfiles=eff.root
+DEBUG 2016-05-08 15:59:17,310: 	 Result: {'result': [{'RequestName': '160508_135916:ztu_crab_pPb_EPOS_SimpleEfficiencyTable_v1'}]}
+INFO 2016-05-08 15:59:17,312: 	 Success: Your task has been delivered to the CRAB3 server.
+INFO 2016-05-08 15:59:17,312: 	 Task name: 160508_135916:ztu_crab_pPb_EPOS_SimpleEfficiencyTable_v1
+INFO 2016-05-08 15:59:17,313: 	 Please use 'crab status' to check how the submission process proceeds.
+DEBUG 2016-05-08 15:59:17,313: 	 About to return
+INFO 2016-05-08 15:59:17,318: 	 Log file is /afs/cern.ch/work/z/ztu/Tracking/pPb2013/CMSSW_5_3_20/src/SimpleEfficiencyTable/SimpleEfficiencyProducer/test/pPb_EPOS_SimpleEfficiencyTable_v1/crab_pPb_EPOS_SimpleEfficiencyTable_v1/crab.log
