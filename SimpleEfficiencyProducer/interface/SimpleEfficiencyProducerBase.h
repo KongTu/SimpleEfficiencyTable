@@ -208,3 +208,5 @@ class SimpleEfficiencyProducer : public edm::EDAnalyzer {
       std::vector<double> dEtaBins_;
 
 };
+
+#endif
