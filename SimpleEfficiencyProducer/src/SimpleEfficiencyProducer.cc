@@ -52,6 +52,7 @@ SimpleEfficiencyProducer::SimpleEfficiencyProducer(const edm::ParameterSet& iCon
   offlinenhits_ = iConfig.getUntrackedParameter<double>("offlinenhits", 0.0);
 
   etaBins_ = iConfig.getUntrackedParameter<std::vector<double>>("etaBins");
+  ptBins_ = iConfig.getUntrackedParameter<std::vector<double>>("ptBins");
 }
 
 
@@ -159,10 +160,19 @@ SimpleEfficiencyProducer::beginJob()
     etaBinsArray[i] = etaBins_[i];
   }
 
+  const int NptBins = ptBins.size() - 1;
+  double ptBinsArray[100];
+
+  for(unsigned i = 0; i < ptBins.size(); i++){
+
+    ptBinsArray[i] = ptBins[i];
+  }
+
+
   Ntrk = fs->make<TH1D>("Ntrk",";Ntrk",5000,0,5000);
 
-  recoHist = fs->make<TH2D>("recoHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, 100, 0, 10);
-  genHist  = fs->make<TH2D>("genHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, 100, 0, 10);
+  recoHist = fs->make<TH2D>("recoHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, NptBins, ptBinsArray);
+  genHist  = fs->make<TH2D>("genHist", ";#eta;p_{T}", NEtaBins, etaBinsArray, NptBins, ptBinsArray);
 
 }
 

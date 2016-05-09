@@ -205,7 +205,7 @@ class SimpleEfficiencyProducer : public edm::EDAnalyzer {
       bool do3pTracker_;
 
       std::vector<double> etaBins_;
-      std::vector<double> dEtaBins_;
+      std::vector<double> ptBins_;
 
 };
 
