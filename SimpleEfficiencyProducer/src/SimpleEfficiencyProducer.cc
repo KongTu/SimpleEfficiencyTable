@@ -160,12 +160,12 @@ SimpleEfficiencyProducer::beginJob()
     etaBinsArray[i] = etaBins_[i];
   }
 
-  const int NptBins = ptBins.size() - 1;
+  const int NptBins = ptBins_.size() - 1;
   double ptBinsArray[100];
 
-  for(unsigned i = 0; i < ptBins.size(); i++){
+  for(unsigned i = 0; i < ptBins_.size(); i++){
 
-    ptBinsArray[i] = ptBins[i];
+    ptBinsArray[i] = ptBins_[i];
   }
 
 
