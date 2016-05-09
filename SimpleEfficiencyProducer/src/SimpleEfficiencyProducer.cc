@@ -99,7 +99,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         //double nhits = trk.numberOfValidHits();
         //double chi2 = trk.chi2();
         //double ndof = trk.ndof();
-        //double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
+        double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
         //chi2n = chi2n/nlayers;
 
         if(!trk.quality(reco::TrackBase::highPurity)) continue;
@@ -111,7 +111,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         if(fabs(trk.eta()) > 2.4 ) continue;
         //if(chi2 > 5) continue;
         //if(ndof < 5) continue;
-        //if(nlayers <= 0 ) continue;
+        if(nlayers <= 0 ) continue;
 
         recoHist->Fill(trk.eta(), trk.pt() );
 
