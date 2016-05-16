@@ -98,10 +98,11 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         double dzerror = sqrt(trk.dzError()*trk.dzError()+bestvzError*bestvzError);
         double dxyerror = sqrt(trk.d0Error()*trk.d0Error()+bestvxError*bestvyError);
         //double nhits = trk.numberOfValidHits();
-        //double chi2 = trk.chi2();
+        double chi2 = trk.chi2();
         //double ndof = trk.ndof();
         double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
-        //chi2n = chi2n/nlayers;
+        double nlayersTracker = trk.hitPattern().trackerLayersWithMeasurement();
+        chi2n = chi2n/nlayersTracker;
 
         if(!trk.quality(reco::TrackBase::highPurity)) continue;
         if(fabs(trk.ptError())/trk.pt() > offlineptErr_ ) continue;
@@ -110,8 +111,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         if(fabs(trk.eta()) < 2.4 && trk.pt() > 0.4 ){nTracks++;}// NtrkOffline        
         
         if(fabs(trk.eta()) > 2.4 ) continue;
-        //if(chi2 > 5) continue;
-        //if(ndof < 5) continue;
+        if(chi2n > offlineChi2_ ) continue;
         if(nlayers <= 0 ) continue;
 
         recoHist->Fill(trk.eta(), trk.pt() );
