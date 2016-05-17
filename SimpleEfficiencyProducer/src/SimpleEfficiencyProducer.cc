@@ -98,7 +98,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         double dzerror = sqrt(trk.dzError()*trk.dzError()+bestvzError*bestvzError);
         double dxyerror = sqrt(trk.d0Error()*trk.d0Error()+bestvxError*bestvyError);
         //double nhits = trk.numberOfValidHits();
-        double chi2n = trk.chi2();
+        double chi2n = trk.normalizedChi2();
         //double ndof = trk.ndof();
         double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
         double nlayersTracker = trk.hitPattern().trackerLayersWithMeasurement();
