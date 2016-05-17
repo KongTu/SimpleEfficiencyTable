@@ -5,7 +5,7 @@ using namespace std;
 void makeCorrectionTable(){
 	
 
-	TFile* file = new TFile("../rootfiles/pPb_EPOS_SimpleEfficiencyTable_v4.root");
+	TFile* file = new TFile("../rootfiles/pPb_HIJING_SimpleEfficiencyTable_v2.root");
 	TH2D* reco = (TH2D*) file->Get("ana/recoHist");
 	TH2D* gen  = (TH2D*) file->Get("ana/genHist");
 
@@ -35,6 +35,6 @@ void makeCorrectionTable(){
 	// }
 
 
-	TFile f1("EPOS_eff.root", "RECREATE");
+	TFile f1("HIJING_eff.root", "RECREATE");
 	reco->Write();
 }
