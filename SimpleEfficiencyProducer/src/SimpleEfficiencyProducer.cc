@@ -100,7 +100,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         //double nhits = trk.numberOfValidHits();
         double chi2n = trk.normalizedChi2();
         //double ndof = trk.ndof();
-        double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
+        //double nlayers = trk.hitPattern().pixelLayersWithMeasurement();//only pixel layers
         double nlayersTracker = trk.hitPattern().trackerLayersWithMeasurement();
         chi2n = chi2n/nlayersTracker;
 
