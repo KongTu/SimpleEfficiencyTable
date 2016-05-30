@@ -112,7 +112,7 @@ SimpleEfficiencyProducer::analyze(const edm::Event& iEvent, const edm::EventSetu
         
         if(fabs(trk.eta()) > 2.4 ) continue;
         if(chi2n > offlineChi2_ ) continue;
-        if(nlayers <= 0 ) continue;
+        //if(nlayers <= 0 ) continue;
 
         recoHist->Fill(trk.eta(), trk.pt() );
 
